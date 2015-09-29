@@ -65,6 +65,12 @@ angular.module('dibari.angular-ellipsis',[])
 						if (isOverflowed(element,scope.useParent)) {
 							var bindArrayStartingLength = bindArray.length,
 								initialMaxHeight = scope.useParent?getParentHeight(element):element[0].clientHeight;
+
+							var maxHeight = parseInt(element.css('max-height'), 10) || parseInt(attributes.maxHeight, 10) || 0;
+							if (maxHeight && initialMaxHeight < maxHeight) {
+								initialMaxHeight = maxHeight;
+								element.css('height', maxHeight + 'px');
+							}
 							
 							element.html(binding + appendString);
 							//Set data-overflow on element for targeting
